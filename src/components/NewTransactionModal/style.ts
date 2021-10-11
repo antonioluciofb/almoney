@@ -7,6 +7,10 @@ export const Container = styled.form`
     font-size: 1.5rem;
     color: var(--text-title);
   }
+  p {
+    margin-top: 0.5rem;
+    color: var(--red);
+  }
   input {
     width: 100%;
     height: 4rem;

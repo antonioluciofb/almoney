@@ -1,12 +1,12 @@
-import { useState, FormEvent } from 'react'
-import Modal from 'react-modal'
+import { FormEvent, useContext, useState } from 'react';
+import Modal from 'react-modal';
 
-import closeSvg from '../../assets/close.svg'
-import { Container, RadioBox, TransactionTypeContainer } from './style'
+import closeSvg from '../../assets/close.svg';
+import incomeImg from '../../assets/income.svg';
+import outcomeImg from '../../assets/outcome.svg';
+import { TransactionContext } from '../../TransactionContext';
+import { Container, RadioBox, TransactionTypeContainer } from './style';
 
-import { api } from '../../services/api'
-import incomeImg from '../../assets/income.svg'
-import outcomeImg from '../../assets/outcome.svg' 
 interface NewTransactionModalProps {
   isOpen: boolean
   onRequestClose: () => void
@@ -17,24 +17,29 @@ export function NewTransactionModal({
   onRequestClose
 }: NewTransactionModalProps) {
   const [title, setTitle] = useState('')
-  const [value, setValue] = useState(0)
+  const [amount, setAmount] = useState(0)
   const [type, setType] = useState('deposit')
   const [category, setCategory] = useState('')
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  const { createTransaction } = useContext(TransactionContext)
+
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
 
-    const data = {
+    await createTransaction({
       title,
-      value,
+      amount,
       category,
       type
-    }
+    })
 
-    api.post('/transactions', data)
+    setTitle('')
+    setAmount(0)
+    setType('deposit')
+    setCategory('')
+
+    onRequestClose()
   }
-
-  console.log('Here ============>', { title, value, type, category })
 
   return (
     <Modal
@@ -60,9 +65,9 @@ export function NewTransactionModal({
         />
         <input
           type="number"
-          value={value}
+          value={amount}
           placeholder="Valor"
-          onChange={event => setValue(Number(event.target.value))}
+          onChange={event => setAmount(Number(event.target.value))}
         />
         <TransactionTypeContainer>
           <RadioBox

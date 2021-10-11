@@ -1,12 +1,12 @@
-import { Dashboard } from './components/Dashboard'
-import { Header } from './components/Header'
+import { createServer, Model } from 'miragejs';
+import { useState } from 'react';
+import Modal from 'react-modal';
 
-import Modal from 'react-modal'
-
-import { GlobalStyles } from './style/global'
-import { createServer, Model } from 'miragejs'
-import { useState } from 'react'
-import { NewTransactionModal } from './components/NewTransactionModal'
+import { Dashboard } from './components/Dashboard';
+import { Header } from './components/Header';
+import { NewTransactionModal } from './components/NewTransactionModal';
+import { GlobalStyles } from './style/global';
+import TransactionProvider from './TransactionContext';
 
 createServer({
   models: {
@@ -45,8 +45,7 @@ createServer({
 
     this.post('/transactions', (schema, request) => {
       const data = JSON.parse(request.requestBody)
-
-      return schema.create('transaction', data)
+      return schema.create('transaction', {...data, createdAt: new Date()})
     })
   }
 })
@@ -63,8 +62,9 @@ export function App() {
   function handleCloseNewTransactionModal() {
     setIsNewTransactionModalOpen(false)
   }
+
   return (
-    <>
+    <TransactionProvider>
       <Header handleOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
       <NewTransactionModal
@@ -72,6 +72,6 @@ export function App() {
         onRequestClose={handleCloseNewTransactionModal}
       />
       <GlobalStyles />
-    </>
+    </TransactionProvider>
   )
 }

@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useState } from 'react'
+import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import Modal from 'react-modal'
 
 import closeSvg from '../../assets/close.svg'
@@ -6,23 +6,42 @@ import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { TransactionContext } from '../../TransactionContext'
 import { Container, RadioBox, TransactionTypeContainer } from './style'
+import { v4 as uuidV4 } from 'uuid'
 
 interface NewTransactionModalProps {
   isOpen: boolean
+  isEdit?: boolean
   onRequestClose: () => void
+  dataForEdition: any
 }
 
 export function NewTransactionModal({
   isOpen,
-  onRequestClose
+  isEdit,
+  onRequestClose,
+  dataForEdition
 }: NewTransactionModalProps) {
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(dataForEdition?.title || '')
   const [amount, setAmount] = useState(0)
   const [type, setType] = useState('deposit')
   const [category, setCategory] = useState('')
   const [formIsValid, setFormIsValid] = useState(true)
 
-  const { createTransaction } = useContext(TransactionContext)
+  useEffect(() => {
+    if (dataForEdition) {
+      setTitle(dataForEdition.title)
+      setAmount(dataForEdition.amount)
+      setType(dataForEdition.type)
+      setCategory(dataForEdition.category)
+    } else {
+      setTitle('')
+      setAmount(0)
+      setType('deposit')
+      setCategory('')
+    }
+  }, [dataForEdition])
+
+  const { createTransaction, editTransaction } = useContext(TransactionContext)
 
   const validateForm = (value: any) => {
     const values = Object.values(value)
@@ -62,7 +81,9 @@ export function NewTransactionModal({
     if (formIsValid) {
       setFormIsValid(true)
 
-      await createTransaction(dataForm)
+      isEdit
+        ? await editTransaction({ ...dataForm, id: dataForEdition.id })
+        : await createTransaction(dataForm)
 
       setTitle('')
       setAmount(0)

@@ -1,12 +1,14 @@
-import { createServer, Model } from 'miragejs';
-import { useState } from 'react';
-import Modal from 'react-modal';
+import { createServer, Model } from 'miragejs'
+import { useState } from 'react'
+import Modal from 'react-modal'
 
-import { Dashboard } from './components/Dashboard';
-import { Header } from './components/Header';
-import { NewTransactionModal } from './components/NewTransactionModal';
-import { GlobalStyles } from './style/global';
-import TransactionProvider from './TransactionContext';
+import { Dashboard } from './components/Dashboard'
+import { Header } from './components/Header'
+import { NewTransactionModal } from './components/NewTransactionModal'
+import { GlobalStyles } from './style/global'
+import TransactionProvider from './TransactionContext'
+
+import { v4 as uuidV4 } from 'uuid'
 
 createServer({
   models: {
@@ -17,7 +19,7 @@ createServer({
     server.db.loadData({
       transactions: [
         {
-          id: 1,
+          id: uuidV4(),
           title: 'Freela de Website',
           type: 'deposit',
           category: 'Dev',
@@ -25,7 +27,7 @@ createServer({
           createdAt: new Date('2021-02-12 09:00:00')
         },
         {
-          id: 2,
+          id: uuidV4(),
           title: 'Alugue do Ap',
           type: 'withdraw',
           category: 'Casa',
@@ -43,32 +45,63 @@ createServer({
       return this.schema.all('transaction')
     })
 
-    this.post('/transactions', (schema, request) => {
+    this.post('/createtransaction', (schema, request) => {
       const data = JSON.parse(request.requestBody)
-      return schema.create('transaction', {...data, createdAt: new Date()})
+      return schema.create('transaction', { ...data, createdAt: new Date() })
+    })
+    this.put('/edittransaction', (schema, request): any => {
+      const data = JSON.parse(request.requestBody)
+      return schema.find('transaction', data.id)?.update(data)
+    })
+    this.delete('/deletetransaction/:id', (schema, request): any => {
+      const id = request.params.id
+      return schema.find('transaction', id)?.destroy()
     })
   }
 })
 
 Modal.setAppElement('#root')
 
+interface Transaction {
+  id: string
+  title: string
+  amount: number
+  type: string
+  category: string
+  createdAt: string
+}
+
 export function App() {
+  const [editTransaction, setEditTransaction] = useState<Transaction | ''>('')
   const [isNewTransactionsModalOpen, setIsNewTransactionModalOpen] =
     useState(false)
+
+  const handlEditTransaction = (data: Transaction) => {
+    setEditTransaction(data)
+    handleOpenNewTransactionModal()
+  }
 
   function handleOpenNewTransactionModal() {
     setIsNewTransactionModalOpen(true)
   }
   function handleCloseNewTransactionModal() {
     setIsNewTransactionModalOpen(false)
+    setEditTransaction('')
   }
 
   return (
     <TransactionProvider>
       <Header handleOpenNewTransactionModal={handleOpenNewTransactionModal} />
-      <Dashboard />
+      <Dashboard
+        handleEditTransaction={{
+          handleOpenNewTransactionModal,
+          handlEditTransaction
+        }}
+      />
       <NewTransactionModal
         isOpen={isNewTransactionsModalOpen}
+        isEdit={editTransaction !== ''}
+        dataForEdition={editTransaction}
         onRequestClose={handleCloseNewTransactionModal}
       />
       <GlobalStyles />

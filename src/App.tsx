@@ -8,8 +8,8 @@ import { NewTransactionModal } from './components/NewTransactionModal'
 import { GlobalStyles } from './style/global'
 import TransactionProvider from './TransactionContext'
 
-import { v4 as uuidV4 } from 'uuid'
 import { Transaction } from './types'
+import { Seeds } from './seeds'
 
 createServer({
   models: {
@@ -17,26 +17,7 @@ createServer({
   },
 
   seeds(server) {
-    server.db.loadData({
-      transactions: [
-        {
-          id: uuidV4(),
-          title: 'Freela de Website',
-          type: 'deposit',
-          category: 'Dev',
-          amount: 6000,
-          createdAt: new Date('2021-02-12 09:00:00')
-        },
-        {
-          id: uuidV4(),
-          title: 'Alugue do Ap',
-          type: 'withdraw',
-          category: 'Casa',
-          amount: 800,
-          createdAt: new Date('2021-02-14 13:00:00')
-        }
-      ]
-    })
+    server.db.loadData(Seeds)
   },
 
   routes() {

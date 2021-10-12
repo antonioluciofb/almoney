@@ -33,7 +33,47 @@ export const HeaderTransactionTitle = styled.p`
   }
 `
 
-export const TransactionContainer = styled.div``
+export const TransactionContainer = styled.div`
+  width: 100%;
+  min-height: 20vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  color: var(--text-title);
+`
+
+export const SearchContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin: 10px 0 30px 0;
+`
+
+export const SearchTitle = styled.p`
+  font-size: 1rem;
+  font-weight: 400;
+`
+
+export const SearchInput = styled.input`
+  width: 30%;
+
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+
+  font-size: 1rem;
+
+  background-color: var(--shape);
+  border: none;
+  outline: none;
+`
 
 export const TransactionBox = styled.div`
   width: 100%;
@@ -44,6 +84,7 @@ export const TransactionBox = styled.div`
   justify-content: space-between;
 
   padding: 2rem 0rem;
+  border-radius: 6px;
 
   font-weight: 400;
   text-align: left;

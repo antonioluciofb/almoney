@@ -1,13 +1,10 @@
-import { Transaction } from '../../types'
+import { ITransaction } from '../../types'
 import { Summary } from '../Summary'
 import { TransactionsTable } from '../TransactionsTable'
 import { Container } from './style'
 
 interface IDashboard {
-  handleEditTransaction: {
-    handleOpenNewTransactionModal: () => void
-    handlEditTransaction: (data: Transaction) => void
-  }
+  handleEditTransaction: (data: ITransaction) => void
 }
 
 export const Dashboard = ({ handleEditTransaction }: IDashboard) => {

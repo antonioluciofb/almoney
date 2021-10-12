@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface Transaction {
+export interface ITransaction {
   id: string
   title: string
   amount: number
@@ -10,7 +10,7 @@ export interface Transaction {
 }
 
 export interface ITransactionInput
-  extends Omit<Transaction, 'id' | 'createdAt'> {
+  extends Omit<ITransaction, 'id' | 'createdAt'> {
   id?: string
 }
 
@@ -25,7 +25,7 @@ export type ICreateTransaction = (
 export type IFormatTransaction = (value: number) => string
 
 export interface ITransactionContext {
-  transactions: Transaction[]
+  transactions: ITransaction[]
   createTransaction: ICreateTransaction
   editTransaction: ICreateTransaction
   deleteTransaction: (value: string) => Promise<void>

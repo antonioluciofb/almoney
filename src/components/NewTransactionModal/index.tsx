@@ -13,13 +13,13 @@ import {
   SubmitButton,
   TransactionTypeContainer
 } from './style'
-import { v4 as uuidV4 } from 'uuid'
+import { ITransaction, ITransactionInput } from '../../types'
 
 interface NewTransactionModalProps {
   isOpen: boolean
   isEdit?: boolean
   onRequestClose: () => void
-  dataForEdition: any
+  dataForEdition: ITransaction
 }
 
 export function NewTransactionModal({
@@ -50,9 +50,9 @@ export function NewTransactionModal({
 
   const { createTransaction, editTransaction } = useContext(TransactionContext)
 
-  const validateForm = (value: any) => {
-    const values = Object.values(value)
-    const hasInvalidInput = values.some((value: any) => {
+  const validateForm = (dataForm: ITransactionInput) => {
+    const values = Object.values(dataForm)
+    const hasInvalidInput = values.some((value: string | number) => {
       return value === '' || value <= 0
     })
     const formIsValid = !hasInvalidInput
@@ -76,7 +76,7 @@ export function NewTransactionModal({
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
 
-    const dataForm = {
+    const dataForm: ITransactionInput = {
       title,
       amount,
       category,

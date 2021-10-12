@@ -14,19 +14,15 @@ import {
 } from './style'
 
 import { FaTrash, FaPen } from 'react-icons/fa'
+import { ITransaction } from '../../types'
 
 interface ITransactionsTable {
-  handleEditTransaction: {
-    handleOpenNewTransactionModal: () => void
-    handlEditTransaction: (data: any) => void
-  }
+  handleEditTransaction: (data: ITransaction) => void
 }
 
 export function TransactionsTable({
   handleEditTransaction
 }: ITransactionsTable) {
-  const { handlEditTransaction, handleOpenNewTransactionModal } =
-    handleEditTransaction
   const {
     transactions: contextTransactions,
     formatCurrent,
@@ -42,6 +38,7 @@ export function TransactionsTable({
       return
     }
     setTransactions(contextTransactions)
+    // eslint-disable-next-line
   }, [contextTransactions])
 
   const handleFilter = (value: string) => {
@@ -99,7 +96,7 @@ export function TransactionsTable({
               <TransactionValue className="icon edit">
                 <FaPen
                   onClick={() => {
-                    handlEditTransaction(transaction)
+                    handleEditTransaction(transaction)
                   }}
                 />
               </TransactionValue>

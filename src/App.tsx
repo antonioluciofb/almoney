@@ -8,7 +8,7 @@ import { NewTransactionModal } from './components/NewTransactionModal'
 import { GlobalStyles } from './style/global'
 import TransactionProvider from './TransactionContext'
 
-import { Transaction } from './types'
+import { ITransaction } from './types'
 import { Seeds } from './seeds'
 
 createServer({
@@ -45,11 +45,11 @@ createServer({
 Modal.setAppElement('#root')
 
 export function App() {
-  const [editTransaction, setEditTransaction] = useState<Transaction | ''>('')
+  const [editTransaction, setEditTransaction] = useState<ITransaction | ''>('')
   const [isNewTransactionsModalOpen, setIsNewTransactionModalOpen] =
     useState(false)
 
-  const handlEditTransaction = (data: Transaction) => {
+  const handleEditTransaction = (data: ITransaction) => {
     setEditTransaction(data)
     handleOpenNewTransactionModal()
   }
@@ -65,16 +65,11 @@ export function App() {
   return (
     <TransactionProvider>
       <Header handleOpenNewTransactionModal={handleOpenNewTransactionModal} />
-      <Dashboard
-        handleEditTransaction={{
-          handleOpenNewTransactionModal,
-          handlEditTransaction
-        }}
-      />
+      <Dashboard handleEditTransaction={handleEditTransaction} />
       <NewTransactionModal
         isOpen={isNewTransactionsModalOpen}
         isEdit={editTransaction !== ''}
-        dataForEdition={editTransaction}
+        dataForEdition={editTransaction as ITransaction}
         onRequestClose={handleCloseNewTransactionModal}
       />
       <GlobalStyles />

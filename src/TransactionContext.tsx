@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 
 import { api } from './services/api'
 import {
-  Transaction,
+  ITransaction,
   ITrasactionProvider,
   ITransactionContext,
   ITransactionInput,
@@ -15,7 +15,7 @@ export const TransactionContext = createContext<ITransactionContext>(
 )
 
 export default function TransactionProvider({ children }: ITrasactionProvider) {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [transactions, setTransactions] = useState<ITransaction[]>([])
 
   useEffect(() => {
     api

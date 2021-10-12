@@ -11,47 +11,6 @@ export const Container = styled.form`
     margin-top: 0.5rem;
     color: var(--red);
   }
-  input {
-    width: 100%;
-    height: 4rem;
-
-    padding: 0 1.5rem;
-
-    font-size: 1rem;
-    font-weight: 400;
-
-    background: #e7e9ee;
-    border: 1px solid #d7d7d7;
-    border-radius: 0.25rem;
-
-    &::placeholder {
-      color: var(--text-body);
-    }
-    & + input {
-      margin-top: 1rem;
-    }
-  }
-  button[type='submit'] {
-    width: 100%;
-    height: 4rem;
-
-    margin-top: 1.5rem;
-    padding: 0 1.5rem;
-
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-
-    background: var(--green) !important;
-    border: 0;
-    border-radius: 0.25rem;
-
-    transition: filter 0.2s ease-in-out;
-
-    &:hover {
-      filter: brightness(0.9);
-    }
-  }
 `
 
 export const TransactionTypeContainer = styled.div`
@@ -101,5 +60,49 @@ export const RadioBox = styled.button<RadioBoxProps>`
     margin-left: 1rem;
     font-size: 1rem;
     color: var(--text-title);
+  }
+`
+export const SimpleButton = styled.button``
+
+export const Input = styled.input`
+  width: 100%;
+  height: 4rem;
+
+  padding: 0 1.5rem;
+
+  font-size: 1rem;
+  font-weight: 400;
+
+  background: #e7e9ee;
+  border: 1px solid #d7d7d7;
+  border-radius: 0.25rem;
+
+  &::placeholder {
+    color: var(--text-body);
+  }
+  & + input {
+    margin-top: 1rem;
+  }
+`
+
+export const SubmitButton = styled.button`
+  width: 100%;
+  height: 4rem;
+
+  margin-top: 1.5rem;
+  padding: 0 1.5rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+
+  background: var(--green) !important;
+  border: 0;
+  border-radius: 0.25rem;
+
+  transition: filter 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(0.9);
   }
 `

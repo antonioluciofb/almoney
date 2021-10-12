@@ -4,7 +4,13 @@ import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import totalImg from '../../assets/total.svg'
 import { TransactionContext } from '../../TransactionContext'
-import { Container } from './style'
+import {
+  AmountValue,
+  BoxValue,
+  Container,
+  HeaderBoxValue,
+  TextValue
+} from './style'
 
 export function Summary() {
   const { transactions, formatCurrent } = useContext(TransactionContext)
@@ -34,31 +40,31 @@ export function Summary() {
 
   return (
     <Container>
-      <div>
-        <header>
-          <p>Entradas</p>
+      <BoxValue>
+        <HeaderBoxValue>
+          <TextValue>Entradas</TextValue>
           <img src={incomeImg} alt="Entradas" />
-        </header>
-        <strong>{formatCurrent(deposit)}</strong>
-      </div>
-      <div>
-        <header>
-          <p>Saidas</p>
+        </HeaderBoxValue>
+        <AmountValue>{formatCurrent(deposit)}</AmountValue>
+      </BoxValue>
+      <BoxValue>
+        <HeaderBoxValue>
+          <TextValue>Saidas</TextValue>
           <img src={outcomeImg} alt="Saidas" />
-        </header>
-        <strong>{formatCurrent(withdraw)}</strong>
-      </div>
+        </HeaderBoxValue>
+        <AmountValue>{formatCurrent(withdraw)}</AmountValue>
+      </BoxValue>
 
-      <div
+      <BoxValue
         style={{ backgroundColor: backgroundVariation }}
         className="highlight-background"
       >
-        <header>
-          <p>Total</p>
+        <HeaderBoxValue>
+          <TextValue>Total</TextValue>
           <img src={totalImg} alt="Total" />
-        </header>
-        <strong>{formatCurrent(total)}</strong>
-      </div>
+        </HeaderBoxValue>
+        <AmountValue>{formatCurrent(total)}</AmountValue>
+      </BoxValue>
     </Container>
   )
 }

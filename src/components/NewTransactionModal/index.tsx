@@ -5,7 +5,14 @@ import closeSvg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { TransactionContext } from '../../TransactionContext'
-import { Container, RadioBox, TransactionTypeContainer } from './style'
+import {
+  Container,
+  Input,
+  RadioBox,
+  SimpleButton,
+  SubmitButton,
+  TransactionTypeContainer
+} from './style'
 import { v4 as uuidV4 } from 'uuid'
 
 interface NewTransactionModalProps {
@@ -104,22 +111,18 @@ export function NewTransactionModal({
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-      <button
-        type="button"
-        onClick={onRequestClose}
-        className="react-modal-close"
-      >
+      <SimpleButton onClick={onRequestClose} className="react-modal-close">
         <img src={closeSvg} alt="Fechar Modal" />
-      </button>
+      </SimpleButton>
       <Container onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
-        <input
+        <Input
           type="text"
           value={title}
           placeholder="Titulo"
           onChange={event => handleChange(event, setTitle)}
         />
-        <input
+        <Input
           type="number"
           value={amount}
           placeholder="Valor"
@@ -150,13 +153,13 @@ export function NewTransactionModal({
             <span>Saída</span>
           </RadioBox>
         </TransactionTypeContainer>
-        <input
+        <Input
           type="text"
           placeholder="Categoria"
           value={category}
           onChange={event => handleChange(event, setCategory)}
         />
-        <button type="submit">Cadastrar</button>
+        <SubmitButton type="submit">Cadastrar</SubmitButton>
         {!formIsValid && <p>Preencha os campos em branco</p>}
       </Container>
     </Modal>

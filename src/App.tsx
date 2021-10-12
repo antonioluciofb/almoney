@@ -9,6 +9,7 @@ import { GlobalStyles } from './style/global'
 import TransactionProvider from './TransactionContext'
 
 import { v4 as uuidV4 } from 'uuid'
+import { Transaction } from './types'
 
 createServer({
   models: {
@@ -61,15 +62,6 @@ createServer({
 })
 
 Modal.setAppElement('#root')
-
-interface Transaction {
-  id: string
-  title: string
-  amount: number
-  type: string
-  category: string
-  createdAt: string
-}
 
 export function App() {
   const [editTransaction, setEditTransaction] = useState<Transaction | ''>('')

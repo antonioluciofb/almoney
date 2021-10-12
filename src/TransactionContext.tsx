@@ -1,35 +1,14 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 import { api } from './services/api'
-
-interface Transaction {
-  id: string
-  title: string
-  amount: number
-  type: string
-  category: string
-  createdAt: string
-}
-
-interface ITransactionInput extends Omit<Transaction, 'id' | 'createdAt'> {
-  id?: string
-}
-
-interface ITrasactionProvider {
-  children: ReactNode
-}
-
-type ICreateTransaction = (transaction: ITransactionInput) => Promise<void>
-
-type IFormatTransaction = (value: number) => string
-
-interface ITransactionContext {
-  transactions: Transaction[]
-  createTransaction: ICreateTransaction
-  editTransaction: ICreateTransaction
-  deleteTransaction: (value: string) => Promise<void>
-  formatCurrent: IFormatTransaction
-}
+import {
+  Transaction,
+  ITrasactionProvider,
+  ITransactionContext,
+  ITransactionInput,
+  IFormatTransaction,
+  ICreateTransaction
+} from './types'
 
 export const TransactionContext = createContext<ITransactionContext>(
   {} as ITransactionContext

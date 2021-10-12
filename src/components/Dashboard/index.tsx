@@ -1,15 +1,8 @@
+import { Transaction } from '../../types'
 import { Summary } from '../Summary'
 import { TransactionsTable } from '../TransactionsTable'
 import { Container } from './style'
 
-interface Transaction {
-  id: string
-  title: string
-  amount: number
-  type: string
-  category: string
-  createdAt: string
-}
 interface IDashboard {
   handleEditTransaction: {
     handleOpenNewTransactionModal: () => void

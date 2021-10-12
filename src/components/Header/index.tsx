@@ -11,7 +11,7 @@ export function Header({
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="dt money" />
+        <img src={logoImg} alt="my expenses" />
         <Button onClick={handleOpenNewTransactionModal} type="button">
           Nova Transação
         </Button>

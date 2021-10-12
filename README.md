@@ -16,6 +16,7 @@ The following features have been added by me:
 #### Exclude an expense
 #### Edit an expense
 #### Filter spent by title
+#### Validations on modal inputs
 
 ## 💻 Getting started
 

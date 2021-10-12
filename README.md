@@ -13,9 +13,9 @@ and where in the initial project it was only possible to create and list the exp
 
 The following features have been added by me:
 
-Exclude an expense
-Edit an expense
-Filter spent by title
+#### Exclude an expense
+#### Edit an expense
+#### Filter spent by title
 
 ## 💻 Getting started
 

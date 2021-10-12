@@ -20,8 +20,8 @@ export const Seeds = {
     },
     {
       id: uuidV4(),
-      title: 'Conta de Lux',
-      type: 'deposit',
+      title: 'Conta de Luz',
+      type: 'withdraw',
       category: 'Dev',
       amount: 170,
       createdAt: new Date()
